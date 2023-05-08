@@ -1,4 +1,5 @@
 # to-do-list-pg3
+
 -Identifique os principais recursos do aplicativo, como adicionar tarefas, excluir tarefas e marcar tarefas como concluídas. Liste esses recursos em um arquivo README.md para que você possa acompanhar o que já foi concluído.
 -Comece a criar a estrutura básica do aplicativo, criando arquivos HTML, CSS e JavaScript e vinculando-os.
 -Crie uma interface de usuário simples para o aplicativo, adicionando um formulário de adição de tarefas e uma lista de tarefas.
