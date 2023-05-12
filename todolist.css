@@ -1,142 +1,138 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
-:root {
-    --primary-color: #3f51b5;
-    --secondary-color: #0F0F0B;
-    --azul-claro: #c5cae9;
-    --branco: #fff;
-    --cinza: #ccc;
-    --cinza-claro: #ececec;
-    --cinza-escuro: #222;
-}
-
-* {
-    margin: 0;
+*{
     padding: 0;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
     box-sizing: border-box;
 }
-html {
-    font-size: 62.5%;
+body{
+    background-image: url("/img/fundo3.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+button{
+    background-color: rgb(252, 253, 252);
+}
+button i{
+    color: black;
 }
 
-body {
-    background-color: var(--cinza-claro);
-    font: 2rem 'Montserrat' ,'Open Sans', sans-serif;
+button:hover{
+    background-color: green;
+}
+button:hover i{
+    color: aliceblue;
+}
+input, select{
+    padding: 2px 13px;
 }
 
-.todo {
+/* container */
+
+.container{
+max-width: 350px;
+margin: 5rem auto;
+background-color: aquamarine;
+border-radius: 15px;
+padding: 1.5rem;
+height: min-content;
+
+}
+.container header {
+    text-align: center;
+    border-bottom: 3px green solid;
+}
+
+/* container */
+
+#formulario, #formulario-editar{
+    padding: 3px;
+    border-bottom: 3px green solid;
+    
+}
+
+#formulario p, #formulario-editar p{
+    margin-bottom: 6px;
+    font-weight: 500;
+
+}
+
+#cancelar{ 
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#pesquisar{
     display: flex;
-    width: 70vw;
+    padding: 3px;
+    border-bottom: 3px solid green;
+    margin-bottom: 5px;
+    gap: 5px;
+}
+#filtar h4{
+   margin-bottom: 4px;
+}
+#pesquisar-itens{
+    border-right: 3px solid green;
+    padding-right: 5px;
+    margin-right: 3px;
+    display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    gap: 15px;
+    width: 60%;
+    margin-bottom:4px;
 }
 
-.todo__title {
+#pesquisar-itens form{
     display: flex;
-    background-color: var(--cinza-escuro);
-    width: 100%;
-    height: 80px;
-    font-weight: bold;
-    border-radius: 8px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    font-size: 2.5rem;
-    color: var(--branco);
 }
 
-.todo__list {
-    display: flex;
+#pesquisar-itens input{
     width: 100%;
+    margin-right: 5px;
+}
+.form-editar{
+    display: none;
+}
+.form-itens{
+   margin-bottom: 5px;
+}
+#filtrar{
+    width: 40%;
+    display: flex;
     flex-direction: column;
-    gap: 10px;
+
+}
+#filtrar select{
+margin-top: 3px;
 }
 
-.todo__item{
+.todas-tarefas{
     display: flex;
-    width: 100%;
-    height: 60px;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    border-radius: 8px;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+  
     padding: 5px;
-    border: 1px solid var(--cinza-escuro);
+    border-bottom: 3px solid green;
+    transition: .3s;
 }
-.todo__item > div {
-    width: 80%;
+.todas-tarefas h4{
+    flex: 1;
+    font-size: 19px;
 }
-.todo__item:hover {
-    cursor: pointer;
-    transition: all .5s ease;
-    background-color: var(--primary-color);
-    color: var(--branco);
+.todas-tarefas button{
+    margin-left: 5px;
 }
-
-.todo__item > input[type='text'] {
-    border: none;
-    width: 80%;
-    font: inherit;
-}
-
-.todo__item > input[type='checkbox'] {
-    margin-left: 10px;
-    margin-right: 10px;
-    accent-color: green;
-}
-
-.todo__item > input[type='button'] {
-    margin-right: 10px;
-    background-color: red;
-    color: var(--branco);
-}
-
-.todo__item > input[type='button'],
-.todo__item > input[type='checkbox'] {
-    width: 30px;
-    height: 30px;
-    font: inherit;
-    border: 1px solid var(--cinza);
-    border-radius: 8px;    
-}
-
-.todo__item > input[type='checkbox']:checked + div {
-    text-decoration:line-through;
-}
-
-.todo__new-item{
-    display: flex;
-    background-color: var(--azul-claro);
-    width: 100%;
-    height: 70px;
-    border-radius: 8px;
-    justify-content: space-evenly;
-    padding: 10px 0;
-    box-shadow: 0px 0px 5px var(--secondary-color);
-    margin: 10px;
-    font: inherit;
-}
-
-.todo__new-item > input{
-    background-color: var(--azul-claro);
-    border: none;
-    width: 90%;
-    outline: none;
-    font: inherit;
-}
-
-.todo__new-item > input::placeholder {
+ .prontas{
+    background-color: rgb(240, 245, 238);
+ }
+ .prontas h4{
+    color: rgb(8, 8, 8);
+    text-decoration: line-through;
     font-style: italic;
-    font-weight: normal;
-}
+ } 
 
-@media (max-width: 700px) {
-    .todo__item {
-        font-size: 1.5rem;
-    }
-}
+ 
