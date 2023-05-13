@@ -2,9 +2,12 @@
 const formlario = document.querySelector("#formulario");
 const formInput = document.querySelector("#form-input");
 const listaTarefas = document.querySelector("#lista-de-tarefas");
-const formEditar = document.querySelector("formulario-editar");
-const formEditeInput = document.querySelector("form-edit-input");
-const btnCancelar = document.querySelector("cancelar");
+const formEditar = document.querySelector("#formulario-editar");
+const formEditeInput = document.querySelector("#form-edit-input");
+const btnCancelar = document.querySelector("#cancelar");
+const pesquisar = document.querySelector("#pesquisar-itens");
+let tarefaAntiga;
+let titulo;
 
 //3 função
 const valorDaInput = (texto) => {
@@ -53,13 +56,61 @@ const btnFinalizar = document.querySelectorAll(".finalizar");
 // Itera sobre cada botão com a classe "finalizar"
 btnFinalizar.forEach((btn) => {
     // Adiciona um evento de escuta de clique a cada botão
+
+
     btn.addEventListener("click", (event) => {
         // Usa o método closest para encontrar o elemento pai mais próximo com a classe "todas-tarefas" e armazena em uma variável
         const divTodasTarefas = event.currentTarget.closest(".todas-tarefas");
         // Adiciona ou remove a classe "prontas" no elemento pai encontrado acima (com o método closest) dependendo do estado atual da classe
         divTodasTarefas.classList.toggle("prontas");
+        
+
+       
     });  
 });
+
+
+
+
+
+
+const mostrarForm = (event) => {
+    formEditar.classList.toggle("form-editar")
+    formlario.classList.toggle("form-editar");
+    listaTarefas.classList.toggle("form-editar");
+    
+}
+
+const botaoEditar = document.querySelectorAll('.editar');
+botaoEditar.forEach((edit) => {
+    edit.addEventListener('click', () => {
+        mostrarForm();
+
+    });
+})
+
+btnCancelar.addEventListener('click', (event) => {
+    event.preventDefault();
+    mostrarForm();
+})
+
+
+const btnEditar = document.querySelectorAll(".editar");
+
+btnEditar.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+        const divTodasTarefas = event.currentTarget.closest(".todas-tarefas");
+        const tarefa = divTodasTarefas.querySelector(".tarefa");
+        const formEditInput = document.getElementById("form-edit-input");
+        formEditInput.value = tarefa.innerText;
+        document.getElementById("formulario-editar").style.display = "block";
+    });
+});
+
+
+
+
+
 
 let alertaExistente = null;
 
@@ -117,7 +168,6 @@ function mostrarAlerta(mensagem, elemento) {
     }, 3000);
 }
 
-
 const btnsRemover = document.querySelectorAll(".remover");
 btnsRemover.forEach((btnRemover) => {
     btnRemover.addEventListener("click", (event) => {
@@ -125,10 +175,12 @@ btnsRemover.forEach((btnRemover) => {
         if (divTodasTarefas.classList.contains("prontas")) {
             divTodasTarefas.remove();
         } else {
-            mostrarAlerta("Remove apenas tarefas prontas", btnRemover);
+            mostrarAlerta("Remove apenas tarefas concluidas", btnRemover);
         }
     });
 });
+
+let 
 
 
 
