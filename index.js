@@ -92,20 +92,56 @@ botaoEditar.forEach((edit) => {
 btnCancelar.addEventListener('click', (event) => {
     event.preventDefault();
     mostrarForm();
+   
+    
 })
 
 
-const btnEditar = document.querySelectorAll(".editar");
+const tarefas = document.querySelectorAll('.todas-tarefas');
 
-btnEditar.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-        const divTodasTarefas = event.currentTarget.closest(".todas-tarefas");
-        const tarefa = divTodasTarefas.querySelector(".tarefa");
-        const formEditInput = document.getElementById("form-edit-input");
-        formEditInput.value = tarefa.innerText;
-        document.getElementById("formulario-editar").style.display = "block";
+tarefas.forEach((tarefa) => {
+    const botaoEditar = tarefa.querySelector('.editar');
+    botaoEditar.addEventListener('click', () => {
+        // Obter o valor da tarefa
+        const tarefaTexto = tarefa.querySelector('h4').textContent;
+
+        // Colocar o valor da tarefa no campo de entrada do formulário de edição
+        const campoEdicao = document.querySelector('#form-edit-input');
+        campoEdicao.value = tarefaTexto;
+
+        // Exibir o formulário de edição e ocultar o formulário de adição
+        const formularioAdicao = document.querySelector('#formulario');
+        const formularioEdicao = document.querySelector('#formulario-editar');
+        formularioAdicao.style.display = 'none';
+        formularioEdicao.style.display = 'block';
+
+        // Definir o ID da tarefa no formulário de edição, para que possa ser identificado posteriormente
+        formularioEdicao.setAttribute('data-id', tarefa.getAttribute('data-id'));
     });
 });
+
+
+const formularioEdicao = document.querySelector('#formulario-editar');
+formularioEdicao.addEventListener('submit', (evento) => {
+    evento.preventDefault();
+
+    // Obter o valor da tarefa editada
+    const novoTexto = document.querySelector('#form-edit-input').value;
+
+    // Obter o ID da tarefa que está sendo editada
+    const formularioEdicao = document.querySelector('#formulario-editar');
+    const id = formularioEdicao.getAttribute('data-id');
+
+    // Atualizar o texto da tarefa correspondente
+    const tarefa = document.querySelector(`.todas-tarefas[data-id="${id}"]`);
+    tarefa.querySelector('h4').textContent = novoTexto;
+
+    // Ocultar o formulário de edição e exibir o formulário de adição novamente
+    const formularioAdicao = document.querySelector('#formulario');
+    formularioEdicao.style.display = 'none';
+    formularioAdicao.style.display = 'block';
+});
+
 
 
 
