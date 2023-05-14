@@ -18,7 +18,8 @@ button{
     background-color: rgb(252, 253, 252);
 }
 button i{
-    color: black;
+     pointer-events: none;
+  color: black;
 }
 
 button:hover{
@@ -126,13 +127,15 @@ margin-top: 3px;
 .todas-tarefas button{
     margin-left: 5px;
 }
- .prontas{
+ .feita{
     background-color: rgb(240, 245, 238);
  }
- .prontas h4{
+ .feita h4{
     color: rgb(8, 8, 8);
     text-decoration: line-through;
     font-style: italic;
  } 
 
- 
+ .prontas {
+    display: none;
+ }

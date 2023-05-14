@@ -5,9 +5,10 @@ const listaTarefas = document.querySelector("#lista-de-tarefas");
 const formEditar = document.querySelector("#formulario-editar");
 const formEditeInput = document.querySelector("#form-edit-input");
 const btnCancelar = document.querySelector("#cancelar");
-const pesquisar = document.querySelector("#pesquisar-itens");
+const pesquisarInput = document.querySelector("#input-pesquisar");
+const btnLimparPesquisa = document.querySelector("#limpar-pesquisa");
 let tarefaAntiga;
-let titulo;
+let pegaTarefa;
 
 //3 função
 const valorDaInput = (texto) => {
@@ -38,6 +39,46 @@ const valorDaInput = (texto) => {
     formInput.focus();
 }
 
+//3 fuções
+const mostraFormularioEditar = () => {
+    formEditar.classList.toggle("prontas");
+    formlario.classList.toggle("prontas");
+    listaTarefas.classList.toggle("prontas");
+}
+
+const tarefaAtualizada = (tarefas) => {
+    const todasTarefas = document.querySelectorAll(".todas-tarefas")
+    todasTarefas.forEach((todas) => {
+        let titulos = todas.querySelector("h4");
+        if(titulos.innerText === tarefaAntiga){
+            titulos.innerText = tarefas;
+        }
+    })
+}
+const getSearchedTodos = (search) => {
+    const todos = document.querySelectorAll(".todas-tarefas");
+
+    todos.forEach((todo) => {
+        const todoTitle = todo.querySelector("h4").innerText.toLowerCase();
+
+        todo.style.display = "flex";
+
+        console.log(todoTitle);
+
+        if (!todoTitle.includes(search)) {
+            todo.style.display = "none";
+        }
+    });
+};
+
+pesquisarInput.addEventListener("keyup", (e) => {
+    const search = e.target.value;
+
+    getSearchedTodos(search);
+});
+
+
+
 
 // 3 eventos
 formlario.addEventListener("submit", (e) =>{
@@ -49,101 +90,76 @@ if(valorDigitado){
 }
 })
 
+btnCancelar.addEventListener("click", (e) => {
+    e.preventDefault();
+    mostraFormularioEditar();
+})
+
+formEditar.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const valorEditado = formEditeInput.value;
+
+    if(valorEditado){
+        tarefaAtualizada(valorEditado);
+
+    }
+    mostraFormularioEditar();
+})
+
 // 3 eventos >> como identificar o click nos botoes
 
-// Seleciona todos os elementos com a classe "finalizar" e armazena em uma variável
-const btnFinalizar = document.querySelectorAll(".finalizar");
-// Itera sobre cada botão com a classe "finalizar"
-btnFinalizar.forEach((btn) => {
-    // Adiciona um evento de escuta de clique a cada botão
 
-
-    btn.addEventListener("click", (event) => {
-        // Usa o método closest para encontrar o elemento pai mais próximo com a classe "todas-tarefas" e armazena em uma variável
-        const divTodasTarefas = event.currentTarget.closest(".todas-tarefas");
-        // Adiciona ou remove a classe "prontas" no elemento pai encontrado acima (com o método closest) dependendo do estado atual da classe
-        divTodasTarefas.classList.toggle("prontas");
-        
-
-       
-    });  
-});
-
-
-
-
-
-
-const mostrarForm = (event) => {
-    formEditar.classList.toggle("form-editar")
-    formlario.classList.toggle("form-editar");
-    listaTarefas.classList.toggle("form-editar");
-    
-}
-
-const botaoEditar = document.querySelectorAll('.editar');
-botaoEditar.forEach((edit) => {
-    edit.addEventListener('click', () => {
-        mostrarForm();
-
-    });
-})
-
-btnCancelar.addEventListener('click', (event) => {
-    event.preventDefault();
-    mostrarForm();
+document.addEventListener("click", (e) => {
+    const eventoFinalizar = e.target;
+    const todosEventos = eventoFinalizar.closest("div");
    
+    if (todosEventos && todosEventos.querySelector("h4")){
+        pegaTarefa = todosEventos.querySelector("h4").innerText;
+    }
+
+    if (eventoFinalizar.classList.contains("finalizar")) {
+        todosEventos.classList.toggle("feita");
+        
+    }
     
-})
-
-
-const tarefas = document.querySelectorAll('.todas-tarefas');
-
-tarefas.forEach((tarefa) => {
-    const botaoEditar = tarefa.querySelector('.editar');
-    botaoEditar.addEventListener('click', () => {
-        // Obter o valor da tarefa
-        const tarefaTexto = tarefa.querySelector('h4').textContent;
-
-        // Colocar o valor da tarefa no campo de entrada do formulário de edição
-        const campoEdicao = document.querySelector('#form-edit-input');
-        campoEdicao.value = tarefaTexto;
-
-        // Exibir o formulário de edição e ocultar o formulário de adição
-        const formularioAdicao = document.querySelector('#formulario');
-        const formularioEdicao = document.querySelector('#formulario-editar');
-        formularioAdicao.style.display = 'none';
-        formularioEdicao.style.display = 'block';
-
-        // Definir o ID da tarefa no formulário de edição, para que possa ser identificado posteriormente
-        formularioEdicao.setAttribute('data-id', tarefa.getAttribute('data-id'));
-    });
-});
-
-
-const formularioEdicao = document.querySelector('#formulario-editar');
-formularioEdicao.addEventListener('submit', (evento) => {
-    evento.preventDefault();
-
-    // Obter o valor da tarefa editada
-    const novoTexto = document.querySelector('#form-edit-input').value;
-
-    // Obter o ID da tarefa que está sendo editada
-    const formularioEdicao = document.querySelector('#formulario-editar');
-    const id = formularioEdicao.getAttribute('data-id');
-
-    // Atualizar o texto da tarefa correspondente
-    const tarefa = document.querySelector(`.todas-tarefas[data-id="${id}"]`);
-    tarefa.querySelector('h4').textContent = novoTexto;
-
-    // Ocultar o formulário de edição e exibir o formulário de adição novamente
-    const formularioAdicao = document.querySelector('#formulario');
-    formularioEdicao.style.display = 'none';
-    formularioAdicao.style.display = 'block';
+    if (eventoFinalizar.classList.contains("remover")) {
+        const btnsRemover = document.querySelectorAll(".remover");
+        btnsRemover.forEach((btnRemover) => {
+            btnRemover.addEventListener("click", (event) => {
+                const divTodasTarefas = event.currentTarget.closest(".todas-tarefas");
+                if (divTodasTarefas.classList.contains("feita")) {
+                    divTodasTarefas.remove();
+                } else {
+                    mostrarAlerta("Remove apenas tarefas concluidas", btnRemover);
+                }
+            });
+        });
+    }
+    
+    if (eventoFinalizar.classList.contains("editar")) {
+       mostraFormularioEditar();
+       formEditeInput.value = pegaTarefa;
+       tarefaAntiga = pegaTarefa;
+    }
+    
+   
 });
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+// 3 mensagem de alerta 
 
 
 
@@ -155,10 +171,8 @@ function mostrarAlerta(mensagem, elemento) {
     if (alertaExistente) {
         // Atualiza a mensagem do alerta existente
         alertaExistente.querySelector(".mensagem").textContent = mensagem;
-
-        // Atualiza a posição do alerta existente
-        alertaExistente.style.top = `${elemento.offsetTop}px`;
-        alertaExistente.style.left = `${elemento.offsetLeft + elemento.offsetWidth}px`;
+        alertaExistente.style.top = `${elemento.offsetTop - 10}px`;
+        alertaExistente.style.left = `${elemento.offsetLeft + elemento.offsetWidth + 20}px`;
     } else {
         // Cria um novo alerta
         const alerta = document.createElement("div");
@@ -201,24 +215,5 @@ function mostrarAlerta(mensagem, elemento) {
     setTimeout(() => {
         alertaExistente.remove();
         alertaExistente = null;
-    }, 3000);
+    }, 4000);
 }
-
-const btnsRemover = document.querySelectorAll(".remover");
-btnsRemover.forEach((btnRemover) => {
-    btnRemover.addEventListener("click", (event) => {
-        const divTodasTarefas = event.currentTarget.closest(".todas-tarefas");
-        if (divTodasTarefas.classList.contains("prontas")) {
-            divTodasTarefas.remove();
-        } else {
-            mostrarAlerta("Remove apenas tarefas concluidas", btnRemover);
-        }
-    });
-});
-
-let 
-
-
-
-
-  
