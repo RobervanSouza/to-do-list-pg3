@@ -12,7 +12,7 @@ let tarefaAntiga;
 let pegaTarefa;
 
 //3 função
-const valorDaInput = (texto) => {
+const valorDaInput = (texto, feita = 0, salva = 1) => {
     const divInput = document.createElement('div');
     divInput.classList.add("todas-tarefas");
 
@@ -34,10 +34,21 @@ const valorDaInput = (texto) => {
     botaoRemover.innerHTML = '<i class="fa-solid fa-xmark"></i>'
     divInput.appendChild(botaoRemover);
     
+    // Utilizando dados da localStorage
+    if (feita) {
+        divInput.classList.add("todas");
+    }
+
+    if (salva) {
+        saveTodoLocalStorage({ texto, feita: 0 });
+    }
+
     listaTarefas.appendChild(divInput)
     
     formInput.value = ""
-    formInput.focus();
+    
+
+
 }
 
 //3 fuções
@@ -192,19 +203,6 @@ document.addEventListener("click", (e) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 3 mensagem de alerta 
 
 
@@ -263,3 +261,56 @@ function mostrarAlerta(mensagem, elemento) {
         alertaExistente = null;
     }, 4000);
 }
+
+// Local Storage
+const getTodosLocalStorage = () => {
+    const todos = JSON.parse(localStorage.getItem("todas")) || [];
+
+    return todos;
+};
+
+const loadTodos = () => {
+    const todos = getTodosLocalStorage();
+
+    todos.forEach((todo) => {
+        valorDaInput(todo.texto, todo.feita, 0);
+    });
+};
+
+const saveTodoLocalStorage = (todo) => {
+    const todos = getTodosLocalStorage();
+
+    todos.push(todo);
+
+    localStorage.setItem("todas", JSON.stringify(todos));
+};
+
+const removeTodoLocalStorage = (todoText) => {
+    const todos = getTodosLocalStorage();
+
+    const filteredTodos = todos.filter((todo) => todo.texto != todoText);
+
+    localStorage.setItem("todas", JSON.stringify(filteredTodos));
+};
+
+const updateTodoStatusLocalStorage = (todoText) => {
+    const todos = getTodosLocalStorage();
+
+    todos.map((todo) =>
+        todo.texto === todoText ? (todo.feita = !todo.feita) : null
+    );
+
+    localStorage.setItem("todas", JSON.stringify(todos));
+}
+
+const updateTodoLocalStorage = (todoOldText, todoNewText) => {
+    const todos = getTodosLocalStorage();
+
+    todos.map((todo) =>
+        todo.texto === todoOldText ? (todo.texto = todoNewText) : null
+    );
+
+    localStorage.setItem("todas", JSON.stringify(todos));
+};
+
+loadTodos();
