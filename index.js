@@ -7,6 +7,7 @@ const formEditeInput = document.querySelector("#form-edit-input");
 const btnCancelar = document.querySelector("#cancelar");
 const pesquisarInput = document.querySelector("#input-pesquisar");
 const btnLimparPesquisa = document.querySelector("#limpar-pesquisa");
+const btnfiltar = document.querySelector("#filtrar-select");
 let tarefaAntiga;
 let pegaTarefa;
 
@@ -63,8 +64,6 @@ const getSearchedTodos = (search) => {
 
         todo.style.display = "flex";
 
-        console.log(todoTitle);
-
         if (!todoTitle.includes(search)) {
             todo.style.display = "none";
         }
@@ -75,6 +74,53 @@ pesquisarInput.addEventListener("keyup", (e) => {
     const search = e.target.value;
 
     getSearchedTodos(search);
+});
+
+btnLimparPesquisa.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    pesquisarInput.value = "";
+
+pesquisarInput.dispatchEvent(new Event("keyup"));
+});
+
+
+const filterTodos = (filterValue) => {
+    const todos = document.querySelectorAll(".todas-tarefas");
+
+    switch (filterValue) {
+        case "todas":
+            todos.forEach((todo) => (todo.style.display = "flex"));
+
+            break;
+
+        case "feita":
+            todos.forEach((todo) =>
+                todo.classList.contains("feita")
+                    ? (todo.style.display = "flex")
+                    : (todo.style.display = "none")
+            );
+
+            break;
+
+        case "falta":
+            todos.forEach((todo) =>
+                !todo.classList.contains("feita")
+                    ? (todo.style.display = "flex")
+                    : (todo.style.display = "none")
+            );
+
+            break;
+
+        default:
+            break;
+    }
+};
+
+btnfiltar.addEventListener("change", (e) => {
+    const filterValue = e.target.value;
+
+    filterTodos(filterValue);
 });
 
 
