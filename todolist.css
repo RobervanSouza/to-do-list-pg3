@@ -16,9 +16,12 @@ body{
 }
 button{
     background-color: rgb(252, 253, 252);
+    width: 1.5rem;
+    height: 1.5rem;
 }
 button i{
      pointer-events: none;
+     font-size: 1rem;
   color: black;
 }
 
@@ -32,6 +35,10 @@ input, select{
     padding: 2px 13px;
 }
 
+#cancelar{
+    
+    width: 5rem;
+}
 /* container */
 
 .container{
@@ -112,13 +119,10 @@ margin-top: 3px;
 }
 
 .todas-tarefas{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  
-    padding: 5px;
-    border-bottom: 3px solid green;
-    transition: .3s;
+    border-radius: 4px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 4.3);
+  padding: 20px;
+  margin-bottom: 10px;
 }
 .todas-tarefas h4{
     flex: 1;

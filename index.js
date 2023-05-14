@@ -186,6 +186,7 @@ document.addEventListener("click", (e) => {
                 const divTodasTarefas = event.currentTarget.closest(".todas-tarefas");
                 if (divTodasTarefas.classList.contains("feita")) {
                     divTodasTarefas.remove();
+                    removeTodoLocalStorage(pegaTarefa);
                 } else {
                     mostrarAlerta("Remove apenas tarefas concluidas", btnRemover);
                 }
@@ -263,54 +264,79 @@ function mostrarAlerta(mensagem, elemento) {
 }
 
 // Local Storage
+// Definindo uma função chamada getTodosLocalStorage que retorna um array com todas as tarefas armazenadas em Local Storage, ou um array vazio caso não exista nenhum registro.
 const getTodosLocalStorage = () => {
-    const todos = JSON.parse(localStorage.getItem("todas")) || [];
+    // Recuperando os dados armazenados em Local Storage com a chave "todas". Caso não exista, retorna um array vazio.
+    const todasTarefas = JSON.parse(localStorage.getItem("todas")) || [];
 
-    return todos;
+    // Retornando o array de tarefas.
+    return todasTarefas;
 };
 
-const loadTodos = () => {
+// Definindo uma função chamada loadTodos que carrega todas as tarefas armazenadas em Local Storage.
+const tarefasArmazenadas = () => {
+    // Recuperando o array de tarefas armazenadas em Local Storage com a função getTodosLocalStorage.
     const todos = getTodosLocalStorage();
 
+    // Iterando sobre cada tarefa do array com forEach.
     todos.forEach((todo) => {
+        // Executando a função valorDaInput para adicionar a tarefa na interface do usuário.
         valorDaInput(todo.texto, todo.feita, 0);
     });
 };
 
+// Definindo uma função chamada saveTodoLocalStorage que salva uma nova tarefa em Local Storage.
 const saveTodoLocalStorage = (todo) => {
+    // Recuperando o array de tarefas armazenadas em Local Storage com a função getTodosLocalStorage.
     const todos = getTodosLocalStorage();
 
+    // Adicionando a nova tarefa ao array.
     todos.push(todo);
 
+    // Salvando o novo array de tarefas em Local Storage com a chave "todas".
     localStorage.setItem("todas", JSON.stringify(todos));
 };
 
+// Definindo uma função chamada removeTodoLocalStorage que remove uma tarefa do Local Storage.
 const removeTodoLocalStorage = (todoText) => {
+    console.log("Removendo tarefa: ", todoText);
+    // Recuperando o array de tarefas armazenadas em Local Storage com a função getTodosLocalStorage.
     const todos = getTodosLocalStorage();
-
+    // Filtrando o array de tarefas para remover a tarefa com o texto especificado.
     const filteredTodos = todos.filter((todo) => todo.texto != todoText);
-
+    // Salvando o novo array de tarefas em Local Storage com a chave "todas".
     localStorage.setItem("todas", JSON.stringify(filteredTodos));
 };
 
+
+// Definindo uma função chamada updateTodoStatusLocalStorage que atualiza o status de uma tarefa (feita ou não feita) no Local Storage.
 const updateTodoStatusLocalStorage = (todoText) => {
+    // Recuperando o array de tarefas armazenadas em Local Storage com a função getTodosLocalStorage.
     const todos = getTodosLocalStorage();
 
+    // Atualizando o status da tarefa com o texto especificado (marcando como feita se estava não feita e vice-versa).
     todos.map((todo) =>
         todo.texto === todoText ? (todo.feita = !todo.feita) : null
     );
 
+    // Salvando o novo array de tarefas em Local Storage com a chave "todas".
     localStorage.setItem("todas", JSON.stringify(todos));
 }
 
+// Definindo uma função chamada updateTodoLocalStorage que atualiza o texto de uma tarefa no Local Storage.
 const updateTodoLocalStorage = (todoOldText, todoNewText) => {
+    // Recuperando o array de tarefas armazenadas em Local Storage com a função getTodosLocalStorage.
     const todos = getTodosLocalStorage();
 
+    // Atualizando o texto da tarefa com o texto
+    // especificado (substituindo o texto antigo pelo novo).
     todos.map((todo) =>
         todo.texto === todoOldText ? (todo.texto = todoNewText) : null
     );
 
+    // Salvando o novo array de tarefas em Local Storage com a chave "todas".
     localStorage.setItem("todas", JSON.stringify(todos));
 };
 
-loadTodos();
+// Carregando todas as tarefas armazenadas em Local Storage quando a página é carregada.
+tarefasArmazenadas();
