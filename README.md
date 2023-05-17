@@ -1,9 +1,45 @@
-# to-do-list-pg3
+# To-Do List
 
--Identifique os principais recursos do aplicativo, como adicionar tarefas, excluir tarefas e marcar tarefas como concluídas. Liste esses recursos em um arquivo README.md para que você possa acompanhar o que já foi concluído.
--Comece a criar a estrutura básica do aplicativo, criando arquivos HTML, CSS e JavaScript e vinculando-os.
--Crie uma interface de usuário simples para o aplicativo, adicionando um formulário de adição de tarefas e uma lista de tarefas.
--Adicione a funcionalidade de adição de tarefas ao aplicativo, permitindo que o usuário adicione uma nova tarefa à lista.
--Implemente a funcionalidade de exclusão de tarefas, permitindo que o usuário remova uma tarefa da lista.
--Implemente a funcionalidade de marcação de tarefas como concluídas, permitindo que o usuário marque uma tarefa como concluída e a liste em uma seção separada.
--Adicione a funcionalidade de armazenamento local do navegador para que as tarefas adicionadas persistam após o usuário fechar e reabrir o aplicativo.
+Este é um projeto simples de uma lista de tarefas (to-do list) construído com HTML, CSS e JavaScript. O objetivo do projeto é permitir que os usuários adicionem, editem, removam e filtrem tarefas em uma interface interativa.
+
+## Funcionalidades
+
+O projeto possui as seguintes funcionalidades:
+
+- Adicionar uma nova tarefa à lista de tarefas.
+- Marcar uma tarefa como concluída.
+- Editar o texto de uma tarefa existente.
+- Remover uma tarefa da lista.
+- Filtrar as tarefas por status (todas, concluídas ou pendentes).
+- Pesquisar tarefas pelo texto.
+
+## Tecnologias Utilizadas
+
+- HTML
+- CSS
+- JavaScript
+
+## Como Usar
+
+1. Faça o download ou clone este repositório.
+2. Abra o arquivo `index.html` em um navegador da web.
+
+## Como Contribuir
+
+Se desejar contribuir para este projeto, siga as etapas abaixo:
+
+1. Faça um fork deste repositório.
+2. Crie uma nova branch com a sua feature ou correção de bug: `git checkout -b minha-feature`.
+3. Faça as alterações desejadas no código.
+4. Verifique se o código está funcionando corretamente.
+5. Commit suas alterações: `git commit -m 'Minha nova feature'`.
+6. Envie para o branch principal: `git push origin minha-feature`.
+7. Crie um novo Pull Request.
+
+## Autor
+
+Este projeto foi desenvolvido por Robervan Souza, foi como inspiração o projeto do Matheus Battisti, porém fiz varias implementações.
+
+## Licença
+
+Este projeto está licenciado sob a licença Mozilla Public License Version 2.0 - veja o arquivo [LICENSE](LICENSE) para mais detalhes.

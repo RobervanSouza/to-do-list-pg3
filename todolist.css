@@ -42,7 +42,7 @@ input, select{
 /* container */
 
 .container{
-max-width: 350px;
+max-width: 550px;
 margin: 5rem auto;
 background-color: aquamarine;
 border-radius: 15px;
@@ -119,14 +119,31 @@ margin-top: 3px;
 }
 
 .todas-tarefas{
+    display: flex;
+    justify-content: space-around;
+   
+    align-items: center;
+    padding: 5px;
+    border-bottom: 3px solid green;
+    transition: .3s;
     border-radius: 4px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 4.3);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   padding: 20px;
   margin-bottom: 10px;
 }
+
 .todas-tarefas h4{
     flex: 1;
     font-size: 19px;
+}
+.todas-tarefas p{
+    flex: 2;
+    display: flex;
+    align-items: center;
+    background-color: rgb(235, 226, 226);
+    border: 3px solid black;
+    gap: 4rem;
+    margin: 9px;
 }
 .todas-tarefas button{
     margin-left: 5px;

@@ -10,46 +10,85 @@ const btnLimparPesquisa = document.querySelector("#limpar-pesquisa");
 const btnfiltar = document.querySelector("#filtrar-select");
 let tarefaAntiga;
 let pegaTarefa;
+let dataHoraCriacao;
+
 
 //3 função
 const valorDaInput = (texto, feita = 0, salva = 1) => {
     const divInput = document.createElement('div');
     divInput.classList.add("todas-tarefas");
 
+    // Cria um elemento <h4> para exibir o texto da tarefa
     const nomeTarefa = document.createElement("h4");
     nomeTarefa.innerText = texto;
     divInput.appendChild(nomeTarefa);
-    
+
+ 
+
+    // Cria um botão para marcar a tarefa como concluída
     const botaoFinalizar = document.createElement("button");
     botaoFinalizar.classList.add("finalizar");
     botaoFinalizar.innerHTML = '<i class="fa-solid fa-check"></i>'
     divInput.appendChild(botaoFinalizar);
 
+    // Cria um botão para editar a tarefa
     const botaoEditar = document.createElement("button");
     botaoEditar.classList.add("editar");
     botaoEditar.innerHTML = '<i class="fa-solid fa-pen"></i>'
     divInput.appendChild(botaoEditar);
+
+    // Cria um botão para remover a tarefa
     const botaoRemover = document.createElement("button");
     botaoRemover.classList.add("remover");
     botaoRemover.innerHTML = '<i class="fa-solid fa-xmark"></i>'
     divInput.appendChild(botaoRemover);
+
+    // Cria um elemento <p> para exibir a data e a hora da criação da tarefa
+
+
+
+
+
+
     
+    const dataHoraTarefa = document.createElement("p");
+    const dataHoraAtual = new Date();
+    const dataFormatada = dataHoraAtual.toLocaleDateString();
+    const horaFormatada = dataHoraAtual.toLocaleTimeString();
+    dataHoraTarefa.innerText = `Criado em: ${dataFormatada} às ${horaFormatada}`;
+    divInput.appendChild(dataHoraTarefa);
+
+
+    // Definindo uma função chamada saveTodoLocalStorage que salva uma nova tarefa em Local Storage.
+    const saveTodoLocalStorage = (todo) => {
+        const todos = getTodosLocalStorage();
+
+        // Adiciona a data e hora atual à tarefa
+        todo.dataCriacao = dataHoraTarefa;
+
+        todos.push(todo);
+
+        localStorage.setItem("todas", JSON.stringify(todos));
+    };
+
     // Utilizando dados da localStorage
     if (feita) {
         divInput.classList.add("todas");
+        // Adiciona a classe "todas" ao elemento divInput se a tarefa estiver marcada como concluída
     }
 
     if (salva) {
         saveTodoLocalStorage({ texto, feita: 0 });
+        // Salva a tarefa na localStorage com os valores do texto e feita (valor 0 indica não concluída)
     }
 
-    listaTarefas.appendChild(divInput)
-    
-    formInput.value = ""
-    
+    listaTarefas.appendChild(divInput);
+    // Adiciona o elemento divInput à lista de tarefas
 
+    formInput.value = "";
+// Limpa o valor do input do formulário
 
-}
+};
 
 //3 fuções
 const mostraFormularioEditar = () => {
@@ -59,27 +98,40 @@ const mostraFormularioEditar = () => {
 }
 
 const tarefaAtualizada = (tarefas) => {
-    const todasTarefas = document.querySelectorAll(".todas-tarefas")
+    const todasTarefas = document.querySelectorAll(".todas-tarefas");
+    // Obtém todos os elementos com a classe "todas-tarefas" e armazena em todasTarefas
+
     todasTarefas.forEach((todas) => {
         let titulos = todas.querySelector("h4");
-        if(titulos.innerText === tarefaAntiga){
+        // Obtém o elemento <h4> dentro de cada elemento todas
+
+        if (titulos.innerText === tarefaAntiga) {
+            // Verifica se o texto do elemento <h4> é igual à tarefaAntiga
             titulos.innerText = tarefas;
+            // Atualiza o texto do elemento <h4> para tarefas
         }
-    })
+    });
 }
+
 const getSearchedTodos = (search) => {
     const todos = document.querySelectorAll(".todas-tarefas");
+    // Obtém todos os elementos com a classe "todas-tarefas" e armazena em todos
 
     todos.forEach((todo) => {
         const todoTitle = todo.querySelector("h4").innerText.toLowerCase();
+        // Obtém o texto do elemento <h4> dentro de cada elemento todo e converte para letras minúsculas
 
         todo.style.display = "flex";
+        // Define o estilo do elemento todo como "flex" para que seja exibido
 
         if (!todoTitle.includes(search)) {
+            // Verifica se o texto do elemento todoTitle não contém a pesquisa fornecida
             todo.style.display = "none";
+            // Oculta o elemento todo definindo o estilo como "none"
         }
     });
 };
+
 
 pesquisarInput.addEventListener("keyup", (e) => {
     const search = e.target.value;
@@ -260,7 +312,7 @@ function mostrarAlerta(mensagem, elemento) {
     setTimeout(() => {
         alertaExistente.remove();
         alertaExistente = null;
-    }, 4000);
+    }, 5000);
 }
 
 // Local Storage
@@ -285,17 +337,8 @@ const tarefasArmazenadas = () => {
     });
 };
 
-// Definindo uma função chamada saveTodoLocalStorage que salva uma nova tarefa em Local Storage.
-const saveTodoLocalStorage = (todo) => {
-    // Recuperando o array de tarefas armazenadas em Local Storage com a função getTodosLocalStorage.
-    const todos = getTodosLocalStorage();
 
-    // Adicionando a nova tarefa ao array.
-    todos.push(todo);
 
-    // Salvando o novo array de tarefas em Local Storage com a chave "todas".
-    localStorage.setItem("todas", JSON.stringify(todos));
-};
 
 // Definindo uma função chamada removeTodoLocalStorage que remove uma tarefa do Local Storage.
 const removeTodoLocalStorage = (todoText) => {
