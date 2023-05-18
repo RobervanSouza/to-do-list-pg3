@@ -71,6 +71,12 @@ const valorDaInput = (texto, feita = 0, salva = 1) => {
         localStorage.setItem("todas", JSON.stringify(todos));
     };
 
+
+
+
+
+
+
     // Utilizando dados da localStorage
     if (feita) {
         divInput.classList.add("todas");
