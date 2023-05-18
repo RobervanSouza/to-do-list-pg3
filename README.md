@@ -38,7 +38,7 @@ Se desejar contribuir para este projeto, siga as etapas abaixo:
 
 ## Autor
 
-Este projeto foi desenvolvido por Robervan Souza, foi como inspiração o projeto do Matheus Battisti, porém fiz varias implementações.
+Este projeto foi desenvolvido por Robervan Souza, foi como inspiração no projeto To Do List de Matheus Battisti, porém fiz varias implementações.
 
 ## Licença
 
